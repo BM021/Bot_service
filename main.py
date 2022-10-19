@@ -4,12 +4,8 @@ from telebot import types
 import database
 import buttons
 
-# Это бот ассистент который регестрирует заказчиков и отправьляет админу. Можно сказать еще это дб для фрилансеров
 # Это демо версия бота!!!
-
-bot = telebot.TeleBot('5450270265:AAF-jeIKwLYON-yLWnrBUxv-v5d1ru0uchg')  # @TestGagaBot
-
-# https://docs.google.com/spreadsheets/d/1st8C-VvlGTLXJ6XPlE8RdH9IadxFoWEr8xoIjTNWGc0/edit#gid=0 ссылка на гугл шитс
+bot = telebot.TeleBot('')
 
 
 @bot.message_handler(commands=['start'])
@@ -92,7 +88,7 @@ def get_meeting(message, company_name, client_name, number, client_mail, work, d
 
 def get_location(message, company_name, client_name, number, client_mail, work, date, deadline, meeting):
     user_id = message.from_user.id
-    admin_id = 777322005
+    admin_id = # your telegram id
 
     if message.location:
         user_location = (message.location.longitude, message.location.latitude)
@@ -113,7 +109,7 @@ def get_location(message, company_name, client_name, number, client_mail, work, 
 
 @bot.message_handler(commands=['admin'])
 def admin_side(message):
-    admin_id = 777322005
+    admin_id = # your telegram id
 
     if admin_id == message.from_user.id:
         bot.send_message(admin_id, 'Выберите нужный пункт', reply_markup=buttons.admin_side_buttons())
@@ -121,7 +117,7 @@ def admin_side(message):
 
 @bot.message_handler(content_types=['text'])
 def text_messages(message):
-    admin_id = 777322005
+    admin_id = # your telegram id
 
     if admin_id == message.from_user.id:
         if message.text == 'Удалить клиента':
@@ -155,7 +151,7 @@ def text_messages(message):
 
 
 def get_exact_client_name(message):
-    admin_id = 777322005
+    admin_id = # your telegram id
     delete_client_name = message.text
 
     database.delete_exact_client(delete_client_name)
@@ -163,7 +159,7 @@ def get_exact_client_name(message):
 
 
 def get_client_name_to_set_service_price(message):
-    admin_id = 777322005
+    admin_id = # your telegram id
     client_name = message.text
 
     bot.send_message(admin_id, 'Введите оплату клиента', reply_markup=types.ReplyKeyboardRemove())
@@ -171,7 +167,7 @@ def get_client_name_to_set_service_price(message):
 
 
 def client_service_price(message, client_name):
-    admin_id = 777322005
+    admin_id = # your telegram id
     price = float(message.text)
 
     database.get_client_service_price(client_name, price)
@@ -179,7 +175,7 @@ def client_service_price(message, client_name):
 
 
 def get_client_name_to_set_payed(message):
-    admin_id = 777322005
+    admin_id = # your telegram id
     client_name = message.text
 
     bot.send_message(admin_id, 'Введите оплату клиента', reply_markup=types.ReplyKeyboardRemove())
@@ -187,7 +183,7 @@ def get_client_name_to_set_payed(message):
 
 
 def client_payed(message, client_name):
-    admin_id = 777322005
+    admin_id = # your telegram id
     payed = float(message.text)
 
     database.update_client_payments(client_name, payed)
